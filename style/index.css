@@ -1,0 +1,65 @@
+
+body{
+    background-color: rgb(255, 255, 255);
+    margin: 0;
+}
+
+#board{
+    position: relative;
+    width: 1024px;
+    height: 100vh;
+    margin: auto;
+    background: url("board.jpg") no-repeat;
+}
+
+div#messageArea {
+    position: absolute;
+    top: 20px;
+    left: -100px;
+    color: rgb(83, 175, 19);
+}
+
+table {
+    position: absolute;
+    left: 130px;/* left: 173px;*/
+    top: 30px; /* top: 98px;*/
+    border-spacing: 0px;
+}
+
+td {
+    width: 70px;
+    height: 70px;
+    border: 1px solid  #53af13;
+    color: #ffffff;
+}
+td.number{
+    border: none;
+    text-align: center;
+    font-weight: normal;
+    font-family: sans-serif;
+    font-size: 20px;
+    color: rgb(152, 207, 113);
+}
+form {
+    position: absolute;
+    bottom:150px;
+    right: -50px;
+    padding: 15px;
+    background-color: rgb(83, 175, 19);
+
+}
+
+form input {
+    background-color: rgb(152, 207, 113);
+    border-color: rgb(83, 175, 19);
+    font-size: 1em;
+
+}
+
+.hit {
+    background: url("../assest/images/fish-fins.svg") no-repeat center center;
+}
+
+.miss {
+    background: url("../assest/images/miss.svg") no-repeat center center;
+}
