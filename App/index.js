@@ -20,7 +20,6 @@ function LodingGame(){
 function generateGameBoard(parentElementId) {
     const parentElement = document.getElementById(parentElementId);
 
-    // Remove any existing HTML content within the parent element
     parentElement.innerHTML = '';
 
     // Generate the game board HTML
@@ -32,25 +31,36 @@ function generateGameBoard(parentElementId) {
     messageArea.id = 'messageArea';
     gameBoard.appendChild(messageArea);
 
-    // Create the table for the game grid
     const table = document.createElement('table');
     for (let row = 0; row < 8; row++) {
         const tr = document.createElement('tr');
+
         for (let col = 0; col < 8; col++) {
             const td = document.createElement('td');
-            if (row === 0) {
+
+            if (col === 0) {
+                // Leftmost column (letters)
                 td.classList.add('number');
-                td.textContent = String.fromCharCode(65 + col);
-            } else if (col === 0) {
-                td.classList.add('number');
-                td.textContent = row - 1;
+                if (row > 0) {
+                    td.textContent = String.fromCharCode(64 + row);
+                }
             } else {
-                td.id = `${row - 1}${col - 1}`;
+                if (row === 0) {
+                    // Top row (numbers)
+                    td.classList.add('number');
+                    td.textContent = col - 1;
+                } else {
+                    // Game cells
+                    td.id = `${row - 1}${col - 1}`;
+                }
             }
+
             tr.appendChild(td);
         }
+
         table.appendChild(tr);
     }
+
     gameBoard.appendChild(table);
 
     // Create the input form
@@ -72,7 +82,6 @@ function generateGameBoard(parentElementId) {
 }
 
 // ** Implementing the view
-
 var view = {
     // this method takes a string message and displays it in the message display area
     displayMessage: function(msg) {
@@ -97,51 +106,8 @@ var view = {
 
     }
 };
-/*
-// test activate the view by hardcoding 
-
-view.displayMessage("Tap tap, is this thing on?");
-view.displayMiss("00");
-view.displayHit("34");
-*/
-
 
 // ** Implementing the the model
-/*
-
-// representing each ship as an object that holds the locations it sits in, along with the hits it’s taken {hardcoding location}=> later use random function 
-
-var ships = [
-    { locations: ["31", "41", "51"], hits: ["", "", ""] },
-    { locations: ["14", "24", "34"], hits: ["", "hit", ""] },
-    { locations: ["00", "01", "02"], hits: ["hit", "", ""] }];
-
-
-// Finish this code to access the second ship's middle location and print its value 
-// with console.log.
-
-var ship2 = ships[1];
-var locations = ship2.locations;
-console.log("Location is " + locations[1]);
-
-
-// Finish this code to see if the third ship has a hit in its first location:
-
-var ship3 = ships[2];
-var hits = ship3.hits;
-if (hits[0] === "hit") {
- console.log("Ouch, hit on third ship at location one");
-}
-
-// Finish this code to hit the first ship at the third location:
-
-var ship1 = ships[0];
-var hits = ship1.hits;
-hits[0] = 'hit';
-console.log(ships[0].hits[0]);
-*/
-
-
 var model = {
     boardSize: 7,
 
@@ -155,45 +121,44 @@ var model = {
     { locations: [0, 0, 0], hits: ["", "", ""] },
     { locations: [0, 0, 0], hits: ["", "", ""] }],
 
-    generateShipLocations: function() {
-        var locations;
-        for (var i = 0; i < this.numShips; i++) {// for eash number of the ship we want to create 
+    generateShipLocations: ()=>{
+        var locations
+        for (let i = 0; i < this.numShips; i++) {
             do {
 
-              locations = this.generateShip();// generate new set of location generateShip();
+              locations = this.generateShip()// generate new set of location
 
-            } while (this.collision(locations));//while it is  collision  regenerate  new location tell it is no collision 
+            } while (this.collision(locations))//tell it is no collision 
 
-            this.ships[i].locations = locations;//set the uncollision location to the ships array location 
+            this.ships[i].locations = locations//set the uncollision location to the ships array location 
         }
-
     },
     // generate new location for the ship (random location )
-    generateShip: function() {
-        var direction = Math.floor(Math.random() * 2);//rundom num 0 || 1 
-        var row, col;
-        if (direction === 1) { 
-             // Generate a starting location for a horizontal ship
+    generateShip: ()=> {
+        let direction = Math.floor(Math.random() * 2) 
+        let row, col
+        if (direction === 1) {// horizontal ship
+            // Generate a starting location for a horizontal ship
 
-            row = Math.floor(Math.random() * this.boardSize);
-            col = Math.floor(Math.random() * (this.boardSize - this.shipLength));
+            row = Math.floor(Math.random() * this.boardSize)
+            col = Math.floor(Math.random() * (this.boardSize - this.shipLength))
             /**the ship is going to be placed horizontally, then the starting column must be between 0 and 4, so that we have room 
             for the rest of the ship */
 
-        } else { 
+        } else {// vertical ship
             // Generate a starting location for a vertical ship
     
-            row = Math.floor(Math.random() * (this.boardSize - this.shipLength));
-            col = Math.floor(Math.random() * this.boardSize);
+            row = Math.floor(Math.random() * (this.boardSize - this.shipLength))
+            col = Math.floor(Math.random() * this.boardSize)
             /**likewise,the ship is going to be placed vertically, then the starting row must be between 0 and 4, so that we have room 
             for the rest of the ship */
         }
 
 
         //adding location to newShipLocations array
-        var newShipLocations = [];
+        var newShipLocations = []
 
-        for (var i = 0; i < this.shipLength; i++) {
+        for (let i = 0; i < this.shipLength; i++) {
 
             if (direction === 1) {
                 //code for a horizontal ship location 
@@ -203,19 +168,16 @@ var model = {
                 newShipLocations.push((row + i) + '' + col) //having fix coloum and variable row that is vertically build 
             }
         }
-        // Once we’ve filled the array with the ship’s locations, we return it to the calling method, generateShipLocations
-        return newShipLocations;
+        return newShipLocations
     },
 
     // Avoiding a collision!
-    collision: function(locations) { // locations is an array of locations for a new ship we’d like to place on the boar
+    collision: function(locations) {
 
-        for (var i = 0; i < this.numShips; i++) {//For each ship already on the board...
-
-            var ship = model.ships[i];
+        for (let i = 0; i < this.numShips; i++) {//For each ship already on the board...
+            var ship = model.ships[i]
 
             for (var j = 0; j < locations.length; j++) {
-
                 if (ship.locations.indexOf(locations[j]) >= 0) { //go to  for eash ship[i(1,2,3,..)] => location of it => use index of(new location[j(1,2,3,.. tel the length )])
                                                                  // sheck for match beteen exist location & new location created randomly
 
@@ -278,54 +240,40 @@ var model = {
 //test((activate the fire by hardcoding) ==>  model.fire('00');
 
 
-// ** Implementing the Controller
-
 // Get and process the player’s guess (like “A0” or “B1”) ==> ( "00" or "11" )
-function parseGuess(guess) {//guess is a string 
-
-    var alphabet = ["A", "B", "C", "D", "E", "F", "G"];
+function parseGuess(guess) {
+    let alphabet = ["A", "B", "C", "D", "E", "F", "G"]
     if (guess === null || guess.length !== 2) {
-        alert("Oops, please enter a letter and a number on the board.");
+        alert("Oops, please enter a letter and a number on the board.")
     }else {
+        let row = alphabet.indexOf(guess.charAt(0))                                      
+        let column = guess.charAt(1)
+        
+        if (isNaN(row) || isNaN(column)) {//out the board
 
-        const firstChar = guess.charAt(0);//first caracter of the guess
+            alert("Oops, that isn't on the board.")
 
-        //then, using indexOf, we get back a number between zero 
-        // and six that corresponds to the letter of the first guess
-        var row = alphabet.indexOf(guess.charAt(0));// get the index as a number of  the first caracter of the guess if it exist                                       
+        } else if (row < 0 || row >= model.boardSize || column < 0 || column >= model.boardSize) {//off the board
 
-        var column = guess.charAt(1);//second  caracter of the guess is alredy a number 
-        //** is the first and second  carracter of the guess are valid 
+            alert("Oops, that's off the board!")
 
-        // after the row transform to number ==> both caracter of the guess should be a number 
-        if (isNaN(row) || isNaN(column)) {
-
-            alert("Oops, that isn't on the board.");
-
-        } else if (row < 0 || row >= model.boardSize || column < 0 || column >= model.boardSize) {//if the number of the guess out of border size 
-
-            alert("Oops, that's off the board!");
-
-        } else {
-
-            return row + column;
+        } else {//on the board
+            return row + column
         }
-
     }
-    //If any check failed, return null.
-    return null;
+    return null
 }
 
-var controller = {
+// ** Implementing the Controller
+let controller = {
     guesses: 0,
 
     processGuess: function(guess) {
-        var location = parseGuess(guess);//process the  guess using parseGues function  and give it to location 
+        var location = parseGuess(guess)
 
         if (location) {//location is valid 
-            this.guesses++; //controller.guess++ count the guess only if  its valid 
-
-            var hit = model.fire(location);// fire on place of the guess 
+            this.guesses++
+            const hit = model.fire(location)// fire on place of the guess 
             // determine when the game is complete.
             if (hit && model.shipsSunk === model.numShips) {//the number of the sunk ship === number of the ships ?
 
@@ -333,20 +281,18 @@ var controller = {
                 
             }
         }
-    }
-    
-};
-
+    }  
+}
 //test((activate the controller by hardcoding) controller.processGuess("A6");
+
 
 //add an event handler to the Fire! button or on key-press
 function init() {
-
     // by fire button 
-    var fireButton = document.getElementById("fireButton");
+    let fireButton = document.getElementById("fireButton");
     fireButton.onclick = handleFireButton;
     // by keypress
-    var guessInput = document.getElementById("guessInput");
+    let guessInput = document.getElementById("guessInput");
     guessInput.onkeypress = handleKeyPress;
 
 
@@ -358,39 +304,20 @@ function init() {
 
 }
 
-//get the geuss from the form by pressing 'RETURN key'
 function handleKeyPress(e) {
-
-    var fireButton = document.getElementById("fireButton");
-    
     if (e.keyCode === 13) {    
-        /** If you press the RETURN key, the 
-        event's keyCode property will be set to 
-        13. If that's the case, then we want to 
-        cause the Fire! button to act like it 
-        was clicked. We can do that by calling 
-        the fireButton's click method (basically 
-        tricking it into thinking it was clicked) */
-
-        fireButton.click();
-        return false;
+        document.getElementById("fireButton").click()
+        return false
     }
 }
 
-//get the geuss from the <form> by pressing the fire button 
 function handleFireButton() {
-    // code to get the value from the form
-    var guessInput = document.getElementById("guessInput");
-    var guess = guessInput.value;
+    let guessInput = document.getElementById("guessInput")
+    let guess = guessInput.value//form value
    
-    //Passing the input to the controller
-    controller.processGuess(guess);
-
-    //resets the form input element to be the empty string again 
-    guessInput.value = "";
+    controller.processGuess(guess)
+    guessInput.value = ""
 }
-// //we want the browser to run init when the page is fully loaded.
-// window.onload = init;
 
 
 
