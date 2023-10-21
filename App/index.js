@@ -5,16 +5,15 @@ StartGameBtn.addEventListener('click',StartGame)
 
 function StartGame(){
     console.log('its clicked')
-    LodingPage()
-    generateGameBoard('app');
-    init()
-
+    LodingGame()
 }
 
-function LodingPage(){
+function LodingGame(){
     document.getElementById('Loding').classList.add('d-flex')
     setTimeout(()=>{
         document.getElementById('Loding').classList.remove('d-flex')
+        generateGameBoard('app')
+        init()
     },1000)
 }
 
@@ -232,8 +231,7 @@ var model = {
     fire: function(guess) {
         for (var i = 0; i < this.numShips; i++) {
             var ship = this.ships[i];// For each ship loop through all ships model.ships[i] i=>(1,2,3,..)
-            locations = ship.locations;
-            var index = locations.indexOf(guess); //if the guess is in the locations array, we have a hit
+            var index = ship.locations.indexOf(guess); //if the guess is in the locations array, we have a hit
             //notice that the indexOf method for an array is similar 
             //to the indexOf string method. It takes a value and returns 
             //the index of that value in the array (or -1 if it can't find the value).
@@ -290,11 +288,11 @@ function parseGuess(guess) {//guess is a string
         alert("Oops, please enter a letter and a number on the board.");
     }else {
 
-        firstChar = guess.charAt(0);//first caracter of the guess
+        const firstChar = guess.charAt(0);//first caracter of the guess
 
         //then, using indexOf, we get back a number between zero 
         // and six that corresponds to the letter of the first guess
-        var row = alphabet.indexOf(firstChar);// get the index as a number of  the first caracter of the guess if it exist                                       
+        var row = alphabet.indexOf(guess.charAt(0));// get the index as a number of  the first caracter of the guess if it exist                                       
 
         var column = guess.charAt(1);//second  caracter of the guess is alredy a number 
         //** is the first and second  carracter of the guess are valid 
