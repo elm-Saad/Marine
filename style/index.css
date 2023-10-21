@@ -5,6 +5,7 @@
 body{
     background-color: var(--main-bg-color);
     margin: 0;
+    min-width: 240px;
 }
 
 #board{
@@ -65,4 +66,23 @@ form input {
 
 .miss {
     background: url("../assest/images/miss.svg") no-repeat center center;
+}
+
+.Loding {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background: gray;
+    color: white;
+    text-align: center;
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: center;
+    z-index: 999;
+}
+.d-flex{
+    display: flex;
 }

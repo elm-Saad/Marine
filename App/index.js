@@ -1,6 +1,76 @@
 const app = document.getElementById("app")
+const StartGameBtn = document.getElementById('startGame')
 
+StartGameBtn.addEventListener('click',StartGame)
 
+function StartGame(){
+    console.log('its clicked')
+    LodingPage()
+    generateGameBoard('app');
+    init()
+
+}
+
+function LodingPage(){
+    document.getElementById('Loding').classList.add('d-flex')
+    setTimeout(()=>{
+        document.getElementById('Loding').classList.remove('d-flex')
+    },1000)
+}
+
+function generateGameBoard(parentElementId) {
+    const parentElement = document.getElementById(parentElementId);
+
+    // Remove any existing HTML content within the parent element
+    parentElement.innerHTML = '';
+
+    // Generate the game board HTML
+    const gameBoard = document.createElement('div');
+    gameBoard.id = 'board';
+
+    // Create the message area
+    const messageArea = document.createElement('div');
+    messageArea.id = 'messageArea';
+    gameBoard.appendChild(messageArea);
+
+    // Create the table for the game grid
+    const table = document.createElement('table');
+    for (let row = 0; row < 8; row++) {
+        const tr = document.createElement('tr');
+        for (let col = 0; col < 8; col++) {
+            const td = document.createElement('td');
+            if (row === 0) {
+                td.classList.add('number');
+                td.textContent = String.fromCharCode(65 + col);
+            } else if (col === 0) {
+                td.classList.add('number');
+                td.textContent = row - 1;
+            } else {
+                td.id = `${row - 1}${col - 1}`;
+            }
+            tr.appendChild(td);
+        }
+        table.appendChild(tr);
+    }
+    gameBoard.appendChild(table);
+
+    // Create the input form
+    const form = document.createElement('form');
+    const guessInput = document.createElement('input');
+    guessInput.type = 'text';
+    guessInput.id = 'guessInput';
+    guessInput.placeholder = 'A0';
+    const fireButton = document.createElement('input');
+    fireButton.type = 'button';
+    fireButton.id = 'fireButton';
+    fireButton.value = 'Fire!';
+    form.appendChild(guessInput);
+    form.appendChild(fireButton);
+    gameBoard.appendChild(form);
+
+    // Append the game board to the specified parent element
+    parentElement.appendChild(gameBoard);
+}
 
 // ** Implementing the view
 
@@ -321,8 +391,8 @@ function handleFireButton() {
     //resets the form input element to be the empty string again 
     guessInput.value = "";
 }
-//we want the browser to run init when the page is fully loaded.
-window.onload = init;
+// //we want the browser to run init when the page is fully loaded.
+// window.onload = init;
 
 
 

@@ -8,31 +8,30 @@
     <link rel="stylesheet" href="style/index.css">
     <Link rel="stylesheet" href="style/welcome.css">
     <script defer src="app/index.js" type="module"></script>
+    <script defer src="App/typing.js"></script>
 </head>
-<body>
+<body style="position: relative;">
     <main id="app">
         <section class="welcome" id="Welcome">
-            <div class="css-typing">
-                <p>
-                    Welcome Aboard!
-                </p>
-                <p>
-                    The Battle Begins
-                    In this marine epic, you will command your very own battleship.
-                    It's a game of wit and strategy where your every decision could
-                    lead to glorious triumph or a crushing defeat.
-                    Your battleship is ready for action, but are you prepared to take
-                    on the challenge?
-                </p>
-                <p>
-                    Coordinates and Strategy
-                    Your battleship is equipped with an array of powerful weaponry. To engage the enemy, simply select a letter from the left column (A to J) and a number from the bottom row (1 to 6) to designate your target
-                </p>
-                <p>
-                    But beware, the enemy is not far off. The waters are rife with enemy vessels, and you must use your wits to outmaneuver them. Your mission is to locate and destroy these adversaries. Accurate targeting is the key to victory, so choose your coordinates wisely.
-                </p>
-            </div>
+            <pre id="typewriter"><span class="var-highlight">Welcome Aboard!</span>
 
+<span class="var-highlight">The Battle Begins</span> In this marine epic, you will command
+your very own battleship.It's a game of wit and strategy where your every decision
+could lead to glorious triumph or a crushing defeat.
+Your battleship is ready for action, but are you prepared to take on the challenge?
+
+<span class="var-highlight">Coordinates and Strategy</span> Your battleship is equipped with an array 
+of powerful weaponry.To engage the enemy, simply select a letter from the left column
+<span class="string-highlight">(A to J)</span>and a number from the bottom row 
+<span class="string-highlight">(1 to 6)</span> to designate your target.
+
+<span class="var-highlight">The marine adventure awaits you, Captain. Set sail,
+make your choices, and may the best strategist emerge victorious!</span>  </pre>
+            <div id="CTA">
+                <button id="startGame" class="startGame">
+                    Start
+                </button>
+            </div>
         </section>
         <section class="Loding" id="Loding">
     

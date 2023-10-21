@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;600;700&display=swap');
 :root{
   --main-color:#53af13;
   --main-bg-color:#111111;
@@ -5,135 +6,70 @@
 .welcome{
   max-height: 100vh;
   padding: 0px 1.3rem;
+  padding-top: 3rem;
   background-color: var(--main-bg-color);
   color: var(--main-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+.startGame{
+  opacity: 1;
+  border: 1px solid var(--main-color);
+  background-color: var(--main-bg-color);
+  color: var(--main-color);
+  font-weight: 500;
+  font-size: medium;
+  padding: 0.5rem 1.4rem;
+  transition:all 1s;
+  cursor: pointer;
+}
+.d-none{
+  opacity: 0;
 }
 
+.var-highlight{
+  color: #C0AD60;
+}
 
-.css-typing p {
-    border-right: .15em solid var(--main-color);
-    font-family: "Courier";
-    font-size: 14px;
-    white-space: nowrap;
-    overflow: hidden;
+.string-highlight{
+  color: rgba(253, 149, 90, 0.8);
+}
+
+#typewriter{
+  font-size: 1.2rem;
+  margin: 0;
+  font-family: 'Kumbh Sans', sans-serif;
+  transition: all 0.2s;
+  max-width: 700px;
+  text-wrap: wrap;
+}
+#typewriter::after{
+  content: "|";
+  animation: blink 500ms linear infinite alternate;
+}
+@-webkit-keyframes blink{
+  0%{opacity: 0;}
+  100%{opacity: 1;}
+}
+
+@-moz-keyframes blink{
+  0%{opacity: 0;}
+  100%{opacity: 1;}
+}
+
+@keyframes blink{
+  0%{opacity: 0;}
+  100%{opacity: 1;}
+}
+@media (max-width:620px) {
+  #typewriter{
+    font-size: 0.8rem;
+    max-width: 400px;
   }
-  .css-typing p:nth-child(1) {
-    word-wrap: break-word;
-    -webkit-animation: type 2s steps(40, end);
-    animation: type 2s steps(40, end);
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
+  .startGame{
+    padding: 0.3rem 1rem;
   }
-  
-  .css-typing p:nth-child(2) {
-    word-wrap: break-word;
-    opacity: 0;
-    -webkit-animation: type2 2s steps(40, end);
-    animation: type2 2s steps(40, end);
-    -webkit-animation-delay: 2s;
-    animation-delay: 2s;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
-  }
-  
-  .css-typing p:nth-child(3) {
-    width: 7.3em;
-    opacity: 0;
-    -webkit-animation: type3 5s steps(20, end), blink .5s step-end infinite alternate;
-    animation: type3 5s steps(20, end), blink .5s step-end infinite alternate;
-    -webkit-animation-delay: 4s;
-    animation-delay: 4s;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
-  }
-  
-  @keyframes type {
-    0% {
-      width: 0;
-    }
-    99.9% {
-      border-right: .15em solid var(--main-color);
-    }
-    100% {
-      border: none;
-    }
-  }
-  
-  @-webkit-keyframes type {
-    0% {
-      width: 0;
-    }
-    99.9% {
-      border-right: .15em solid var(--main-color);
-    }
-    100% {
-      border: none;
-    }
-  }
-  
-  @keyframes type2 {
-    0% {
-      width: 0;
-    }
-    1% {
-      opacity: 1;
-    }
-    99.9% {
-      border-right: .15em solid var(--main-color);
-    }
-    100% {
-      opacity: 1;
-      border: none;
-    }
-  }
-  
-  @-webkit-keyframes type2 {
-    0% {
-      width: 0;
-    }
-    1% {
-      opacity: 1;
-    }
-    99.9% {
-      border-right: .15em solid var(--main-color);
-    }
-    100% {
-      opacity: 1;
-      border: none;
-    }
-  }
-  
-  @keyframes type3 {
-    0% {
-      width: 0;
-    }
-    1% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-  
-  @-webkit-keyframes type3 {
-    0% {
-      width: 0;
-    }
-    1% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-  
-  @keyframes blink {
-    50% {
-      border-color: transparent;
-    }
-  }
-  @-webkit-keyframes blink {
-    50% {
-      border-color: tranparent;
-    }
-  }
+}
