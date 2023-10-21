@@ -1,14 +1,19 @@
 const app = document.getElementById("app")
 const StartGameBtn = document.getElementById('startGame')
+const enteredLocations = []
 
-StartGameBtn.addEventListener('click',StartGame)
+StartGameBtn.addEventListener('click',LodingSGame)
 
-function StartGame(){
-    console.log('its clicked')
-    LodingGame()
+function LdingEGame(status){
+    document.getElementById('Loding').classList.add('d-flex')
+    setTimeout(()=>{
+        document.getElementById('Loding').classList.remove('d-flex')
+        generateGameEnd('app' ,status)
+        end()
+    },1000)
 }
 
-function LodingGame(){
+function LodingSGame(){
     document.getElementById('Loding').classList.add('d-flex')
     setTimeout(()=>{
         document.getElementById('Loding').classList.remove('d-flex')
@@ -80,32 +85,80 @@ function generateGameBoard(parentElementId) {
     // Append the game board to the specified parent element
     parentElement.appendChild(gameBoard);
 }
+function generateGameEnd(parentElement,status){
+    const parentElement = document.getElementById(parentElementId)
+
+    parentElement.innerHTML = ''
+    if(status ==='win'){
+        parentElement.innerHTML =`<pre id="typewriter"><span class="var-highlight">Welcome Aboard!</span>
+
+        <span class="var-highlight">The Battle Begins</span> In this marine epic, you will command
+        your very own battleship.It's a game of wit and strategy where your every decision
+        could lead to glorious triumph or a crushing defeat.
+        Your battleship is ready for action, but are you prepared to take on the challenge?
+        
+        <span class="var-highlight">Coordinates and Strategy</span> Your battleship is equipped with an array 
+        of powerful weaponry.To engage the enemy, simply select a letter from the left column
+        <span class="string-highlight">(A to J)</span>and a number from the bottom row 
+        <span class="string-highlight">(1 to 6)</span> to designate your target.
+        
+        <span class="var-highlight">The marine adventure awaits you, Captain. Set sail,
+        make your choices, and may the best strategist emerge victorious!</span>  </pre>
+        <div id="CTA">
+            <button id="startGame" class="startGame">
+                Start
+            </button>
+        </div>
+        `
+
+    }else{
+        parentElement.innerHTML =`<pre id="typewriter"><span class="var-highlight">Welcome Aboard!</span>
+
+        <span class="var-highlight">The Battle Begins</span> In this marine epic, you will command
+        your very own battleship.It's a game of wit and strategy where your every decision
+        could lead to glorious triumph or a crushing defeat.
+        Your battleship is ready for action, but are you prepared to take on the challenge?
+        
+        <span class="var-highlight">Coordinates and Strategy</span> Your battleship is equipped with an array 
+        of powerful weaponry.To engage the enemy, simply select a letter from the left column
+        <span class="string-highlight">(A to J)</span>and a number from the bottom row 
+        <span class="string-highlight">(1 to 6)</span> to designate your target.
+        
+        <span class="var-highlight">The marine adventure awaits you, Captain. Set sail,
+        make your choices, and may the best strategist emerge victorious!</span>  </pre>
+        <div id="CTA">
+            <button id="startGame" class="startGame">
+                Start
+            </button>
+        </div>
+        `
+    }
+
+    //logic for ending game 
+}
+
+function end(){
+    document.getElementById('restart').addEventListener('click',LodingSGame)
+}
 
 // ** Implementing the view
 var view = {
-    // this method takes a string message and displays it in the message display area
     displayMessage: function(msg) {
 
-    var messageArea = document.getElementById("messageArea");
-    messageArea.innerHTML = msg;
+    let messageArea = document.getElementById("messageArea")
+    messageArea.innerHTML = msg
 
     },
-    // this method takes  ( id ) of a <td> element  and apply hit class to it
     displayHit: function(location) {
-
-    var cell = document.getElementById(location);
-    cell.setAttribute("class", "hit");
-
+        let cell = document.getElementById(location)
+        cell.setAttribute("class", "hit")
     },
 
-    // this method takes  ( id ) of a <td> element  and apply miss class to it
     displayMiss: function(location) {
-
-    var cell = document.getElementById(location);
-    cell.setAttribute("class", "miss");
-
+        let cell = document.getElementById(location)
+        cell.setAttribute("class", "miss")
     }
-};
+}
 
 // ** Implementing the the model
 var model = {
@@ -173,70 +226,51 @@ var model = {
 
     // Avoiding a collision!
     collision: function(locations) {
-
         for (let i = 0; i < this.numShips; i++) {//For each ship already on the board...
-            var ship = model.ships[i]
-
-            for (var j = 0; j < locations.length; j++) {
-                if (ship.locations.indexOf(locations[j]) >= 0) { //go to  for eash ship[i(1,2,3,..)] => location of it => use index of(new location[j(1,2,3,.. tel the length )])
-                                                                 // sheck for match beteen exist location & new location created randomly
-
-                    //it matched an existing location, so we return true (meaning, we found a collision). 
-                    return true;
+            let ship = model.ships[i]
+        
+            for (let j = 0; j < locations.length; j++) {
+                if (ship.locations.indexOf(locations[j]) >= 0){
+                    return true
                 }
             }
         }
-        // never found a match for any of the locations we were checking => return false (there was no collision).
-        return false;
+        //return false (there was no collision).
+        return false
     },
 
     fire: function(guess) {
-        for (var i = 0; i < this.numShips; i++) {
-            var ship = this.ships[i];// For each ship loop through all ships model.ships[i] i=>(1,2,3,..)
-            var index = ship.locations.indexOf(guess); //if the guess is in the locations array, we have a hit
-            //notice that the indexOf method for an array is similar 
-            //to the indexOf string method. It takes a value and returns 
-            //the index of that value in the array (or -1 if it can't find the value).
+        for (let i = 0; i < this.numShips; i++) {
+            let ship = this.ships[i]
+            let index = ship.locations.indexOf(guess)
 
             if (index >= 0) {
-                // We have a hit!
-                //so mark the hits array at the same index.
-                ship.hits[index] = "hit";
-                //Notify the view that we got a hit at the location in guess. (guess==> location of the hit) 
-                view.displayHit(guess);
-                // ask the view to display the message “HIT!”
-                view.displayMessage("HIT!");
-                //look if the ship sunk after this hit 
-                if (this.isSunk(ship)) {// the ship is eader the ship 1 ,2 ,3  from the ships array (var ship = this.ships[i];)
+                ship.hits[index] = "hit"
+                view.displayHit(guess)
+                view.displayMessage("HIT!")
+                if (this.isSunk(ship)) {
 
-                    //// ask the view to display the message “You sank my battleship!”
-                    view.displayMessage("You sank my battleship!");
-                    this.shipsSunk++; // add sunk ship
+                    view.displayMessage("You sank my battleship!")
+                    this.shipsSunk++ // add sunk ship
 
                 }
-                return true;
+                return true
             }
         }
-        //after you loop and not find the guess on any ship location 
-
-        //Notify the view that we got a miss at the location in guess.
-        view.displayMiss(guess);
-        // ask the view to display the message “You missed.”
-        view.displayMessage("You missed.");
-        return false;
+        view.displayMiss(guess)//miss
+        view.displayMessage("You missed.")
+        return false
     },
 
     isSunk: function(ship) {
-        // loop through all ships and see if hits are all hit if it is than ship is sunk
-        for (var i = 0; i < this.shipLength; i++) {
+        for (let i = 0; i < this.shipLength; i++) {
             if (ship.hits[i] !== "hit") {
-            return false;
+                return false
+            }
         }
-        }
-        return true;// ship x(1,2,3,..tell the numShips) got hit[1,2,3,.. tell shipLength ] ==> ship got hit in all its place 
+        return true
     }
-
-};
+}
 //test((activate the fire by hardcoding) ==>  model.fire('00');
 
 
@@ -267,41 +301,48 @@ function parseGuess(guess) {
 // ** Implementing the Controller
 let controller = {
     guesses: 0,
-
     processGuess: function(guess) {
         var location = parseGuess(guess)
 
         if (location) {//location is valid 
-            this.guesses++
-            const hit = model.fire(location)// fire on place of the guess 
-            // determine when the game is complete.
-            if (hit && model.shipsSunk === model.numShips) {//the number of the sunk ship === number of the ships ?
+            if (enteredLocations.includes(location)) {
+                alert('You already entered this location!')
+            } else {
+                enteredLocations.push(location)
+                this.guesses++
+                const hit = model.fire(location)// fire on place of the guess 
+                // determine when the game is complete.
+                if ((hit && model.shipsSunk === model.numShips) && guesses <= '21' ) {//the number of the sunk ship === number of the ships ?
+                    view.displayMessage("You sank all my battleships, in " + this.guesses + " guesses")
+                    setTimeout(()=>{
+                        LdingEGame('win')
+                    },1000)
 
-                view.displayMessage("You sank all my battleships, in " + this.guesses + " guesses"); 
-                
+                } else if((hit && model.shipsSunk === model.numShips) && guesses >= '21'){
+                    setTimeout(()=>{
+                        LdingEGame('loose')
+                    },1000)
+                }
             }
         }
     }  
 }
-//test((activate the controller by hardcoding) controller.processGuess("A6");
 
+//test((activate the controller by hardcoding) controller.processGuess("A6");
 
 //add an event handler to the Fire! button or on key-press
 function init() {
     // by fire button 
-    let fireButton = document.getElementById("fireButton");
-    fireButton.onclick = handleFireButton;
+    let fireButton = document.getElementById("fireButton")
+    fireButton.onclick = handleFireButton
     // by keypress
-    let guessInput = document.getElementById("guessInput");
-    guessInput.onkeypress = handleKeyPress;
-
+    let guessInput = document.getElementById("guessInput")
+    guessInput.onkeypress = handleKeyPress
 
     /** add the call  to generate the ship locations,  which will fill in those empty  arrays in the model. 
         That way all the ships will have locations ready to go when you start playing.
     */
-    model.generateShipLocations();
-
-
+    model.generateShipLocations()
 }
 
 function handleKeyPress(e) {
