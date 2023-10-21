@@ -1,12 +1,24 @@
+:root{
+  --main-color:#53af13;
+  --main-bg-color:#111111;
+}
+.welcome{
+  max-height: 100vh;
+  padding: 0px 1.3rem;
+  background-color: var(--main-bg-color);
+  color: var(--main-color);
+}
+
+
 .css-typing p {
-    border-right: .15em solid orange;
+    border-right: .15em solid var(--main-color);
     font-family: "Courier";
     font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
   }
   .css-typing p:nth-child(1) {
-    width: 7.3em;
+    word-wrap: break-word;
     -webkit-animation: type 2s steps(40, end);
     animation: type 2s steps(40, end);
     -webkit-animation-fill-mode: forwards;
@@ -14,7 +26,7 @@
   }
   
   .css-typing p:nth-child(2) {
-    width: 11.5em;
+    word-wrap: break-word;
     opacity: 0;
     -webkit-animation: type2 2s steps(40, end);
     animation: type2 2s steps(40, end);
@@ -40,7 +52,7 @@
       width: 0;
     }
     99.9% {
-      border-right: .15em solid orange;
+      border-right: .15em solid var(--main-color);
     }
     100% {
       border: none;
@@ -52,7 +64,7 @@
       width: 0;
     }
     99.9% {
-      border-right: .15em solid orange;
+      border-right: .15em solid var(--main-color);
     }
     100% {
       border: none;
@@ -67,7 +79,7 @@
       opacity: 1;
     }
     99.9% {
-      border-right: .15em solid orange;
+      border-right: .15em solid var(--main-color);
     }
     100% {
       opacity: 1;
@@ -83,7 +95,7 @@
       opacity: 1;
     }
     99.9% {
-      border-right: .15em solid orange;
+      border-right: .15em solid var(--main-color);
     }
     100% {
       opacity: 1;

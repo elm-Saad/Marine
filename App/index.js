@@ -1,12 +1,4 @@
-import Navigation from "../utils/PagesNavigation"
-
-
-const welcomePage = document.getElementById('Welcome')
-const GamePage = document.getElementById('Game')
-const LodingState = document.getElementById('Loding')
-const EndGame = document.getElementById('EndGame')
-
-const NavigationArray = ['welcomePage','GamePage','LodingState','EndGame']
+const app = document.getElementById("app")
 
 
 
