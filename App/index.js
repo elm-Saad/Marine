@@ -100,7 +100,8 @@ function generateGameEnd(parentElementId,status){
         <section class="welcome" id="Welcome">
             <img class="radio_nanny" src="assest/images/radio_nanny.png" alt="radio nanny">
             <p>
-                <span>win</span>
+                <span>Congratulations! You've won the game!</span>
+                <span>Greate job , Captain! Would you like to replayand conquermore challenges?</span>
             </p>
             <div id="CTA">
                 <button id="restartGame" class="startGame">
@@ -115,7 +116,8 @@ function generateGameEnd(parentElementId,status){
         <section class="welcome" id="Welcome">
             <img class="radio_nanny" src="assest/images/radio_nanny.png" alt="radio nanny">
             <p>
-                <span>loose</span>
+                <span>Game Over! You fought bravely but didn't winthis time.</span>
+                <span>Don't give up, Captain! Want to give it another shot?</span>
             </p>
             <div id="CTA">
                 <button id="restartGame" class="startGame">
@@ -320,10 +322,10 @@ let controller = {
                 const hit = model.fire(location)// fire on place of the guess 
                 // determine when the game is complete.
                 if ((hit && model.shipsSunk === model.numShips) && this.guesses <= '21' ) {//the number of the sunk ship === number of the ships ?
-                    enteredLocations = []
-                    this.guesses=0
                     //add level handle
                     view.displayMessage("You sank all the battleships, in " + this.guesses + " guesses")
+                    enteredLocations = []
+                    this.guesses=0
                     setTimeout(()=>{
                         LodingEGame('win')
                     },2000)
