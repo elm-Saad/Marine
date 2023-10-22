@@ -1,6 +1,6 @@
 const app = document.getElementById("app")
 const StartGameBtn = document.getElementById('startGame')
-const enteredLocations = []
+let enteredLocations = []
 
 StartGameBtn.addEventListener('click',LodingSGame)
 
@@ -133,6 +133,15 @@ function end(){
     document.getElementById('restartGame').addEventListener('click',LodingSGame)
 }
 
+function Customalert(text){
+    const alertText = document.getElementById('AltertText')
+    document.querySelector('.alert').classList.add('opacity')
+    alertText.innerText=text
+    setTimeout(()=>{
+        document.querySelector('.alert').classList.remove('opacity')
+        alertText.innerText=''
+    },2000)
+}
 // ** Implementing the view
 var view = {
     displayMessage: function(msg) {
@@ -245,7 +254,7 @@ var model = {
                 view.displayMessage("HIT!")
                 if (this.isSunk(ship)) {
 
-                    view.displayMessage("You sank my battleship!");
+                    view.displayMessage("You sank A battleship!");
                     this.shipsSunk++ // add sunk ship
 
                 }
@@ -276,18 +285,18 @@ var model = {
 function parseGuess(guess) {
     let alphabet = ["A", "B", "C", "D", "E", "F", "G"]
     if (guess === null || guess.length !== 2) {
-        alert("Oops, please enter a letter and a number on the board.")
+        Customalert("you have to enter a letter and a number on the board.")
     }else {
         let row = alphabet.indexOf(guess.charAt(0))                                      
         let column = guess.charAt(1)
         
         if (isNaN(row) || isNaN(column)) {//out the board
 
-            alert("Oops, that isn't on the board.")
+            Customalert("that isn't on the board.")
 
         } else if (row < 0 || row >= model.boardSize || column < 0 || column >= model.boardSize) {//off the board
 
-            alert("Oops, that's off the board!")
+            Customalert("that's off the board!")
 
         } else {//on the board
             return row + column
@@ -304,20 +313,25 @@ let controller = {
 
         if (location) {//location is valid 
             if (enteredLocations.includes(location)) {
-                alert('You already entered this location!')
+                Customalert('You already entered this location!')
             } else {
                 enteredLocations.push(location)
                 this.guesses++
                 const hit = model.fire(location)// fire on place of the guess 
                 // determine when the game is complete.
                 if ((hit && model.shipsSunk === model.numShips) && this.guesses <= '21' ) {//the number of the sunk ship === number of the ships ?
-                    view.displayMessage("You sank all my battleships, in " + this.guesses + " guesses")
+                    enteredLocations = []
+                    this.guesses=0
+                    //add level handle
+                    view.displayMessage("You sank all the battleships, in " + this.guesses + " guesses")
                     setTimeout(()=>{
                         LodingEGame('win')
                     },2000)
 
                 } else if(this.guesses >= '21'){
-                    view.displayMessage("we run out the bullets")
+                    enteredLocations = []
+                    this.guesses=0
+                    view.displayMessage("we run out of bullets")
                     setTimeout(()=>{
                         LodingEGame('loose')
                     },2000)

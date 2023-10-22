@@ -7,49 +7,7 @@ body{
     margin: 0;
     min-width: 240px;
 }
-/*
-<div id="board">
-    <div id="messageArea">HIT!</div>
-    <table>
-        <tr>
-            <td class="number"></td>
-            <td class="number">0</td>
-            <td class="number">1</td>
-            <td class="number">2</td>
-            <td class="number">3</td>
-            <td class="number">4</td>
-            <td class="number">5</td>
-            <td class="number">6</td>
-        </tr>
-        <tr>
-            <td class="number">A</td>
-            <td id="00"></td>
-            <td id="01" class="hit"></td>
-            <td id="02"></td><td id="03">
-            </td><td id="04"></td>
-            <td id="05" class="miss"></td>
-            <td id="06" class="miss"></td>
-        </tr>
-        .
-        .
-        .
-        <tr>
-            <td class="number">E</td>
-            <td id="40"></td>
-            <td id="41"></td>
-            <td id="42"></td>
-            <td id="43"></td>
-            <td id="44"></td>
-            <td id="45"></td>
-            <td id="46"></td>
-        </tr>
-    </table>
-    <form>
-        <input type="text" id="guessInput" placeholder="A0">
-        <input type="button" id="fireButton" value="Fire!">
-    </form>
-</div>
-*/
+
 #board{
     position: relative;
     display: flex;
@@ -62,7 +20,6 @@ body{
     max-width: 1024px;
     min-height: 100vh;
     margin: auto;
-    background: url("board.jpg") no-repeat;
 }
 
 div#messageArea {
@@ -213,7 +170,7 @@ td {
         padding: 0;
     }
     div#messageArea {
-        width: 100px;
+        width: 200px;
         
     }
     td{
@@ -283,6 +240,7 @@ input[type="button"] {
     left: 0;
     width: 100%;
     min-height: 100vh;
+    height: 100%;
     background: var(--main-bg-color);
     color: white;
     text-align: center;
@@ -291,14 +249,29 @@ input[type="button"] {
     justify-content: center;
     z-index: 999;
 }
+.alert{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    margin-top: 1rem;
+    padding: 1rem 3rem;
+    background: var(--main-bg-color);
+    border: 1px solid var(--main-color);
+    color: var(--main-color);
+    z-index: 999;
+    opacity: 0;
+}
+.opacity{
+    opacity: 1;
+}
 .marine_Ship{
     animation: ship 2s linear infinite;
     background-repeat: no-repeat;
-    bottom: 175px;
-    height: 145px;
     left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
 	position: absolute;
-    width: 250px;
 }
 .d-flex{
     display: flex;
@@ -309,7 +282,7 @@ input[type="button"] {
 	}
 
 	50%{
-		transform: rotate(-3deg);
+		transform: rotate(-6deg);
 	}
 
 	100%{
