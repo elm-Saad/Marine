@@ -10,7 +10,7 @@ function LodingEGame(status){
         document.getElementById('Loding').classList.remove('d-flex')
         generateGameEnd('app' ,status)
         end()
-    },1000)
+    },2000)
 }
 
 function LodingSGame(){
@@ -19,7 +19,7 @@ function LodingSGame(){
         document.getElementById('Loding').classList.remove('d-flex')
         generateGameBoard('app')
         init()
-    },1000)
+    },2000)
 }
 
 function generateGameBoard(parentElementId) {
@@ -35,6 +35,8 @@ function generateGameBoard(parentElementId) {
     messageArea.id = 'messageArea'
     gameBoard.appendChild(messageArea)
 
+    const board = document.createElement('div')
+    board.className = 'boardDiv'
     const table = document.createElement('table')
     for (let row = 0; row < 8; row++) {
         const tr = document.createElement('tr')
@@ -65,7 +67,13 @@ function generateGameBoard(parentElementId) {
         table.appendChild(tr)
     }
 
-    gameBoard.appendChild(table)
+    const radar = document.createElement('div')
+    radar.className='radar'
+    board.appendChild(table)
+    board.appendChild(radar)
+
+    gameBoard.appendChild(board)
+
 
     // Create the input form
     const form = document.createElement('form')

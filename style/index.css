@@ -7,65 +7,256 @@ body{
     margin: 0;
     min-width: 240px;
 }
-
+/*
+<div id="board">
+    <div id="messageArea">HIT!</div>
+    <table>
+        <tr>
+            <td class="number"></td>
+            <td class="number">0</td>
+            <td class="number">1</td>
+            <td class="number">2</td>
+            <td class="number">3</td>
+            <td class="number">4</td>
+            <td class="number">5</td>
+            <td class="number">6</td>
+        </tr>
+        <tr>
+            <td class="number">A</td>
+            <td id="00"></td>
+            <td id="01" class="hit"></td>
+            <td id="02"></td><td id="03">
+            </td><td id="04"></td>
+            <td id="05" class="miss"></td>
+            <td id="06" class="miss"></td>
+        </tr>
+        .
+        .
+        .
+        <tr>
+            <td class="number">E</td>
+            <td id="40"></td>
+            <td id="41"></td>
+            <td id="42"></td>
+            <td id="43"></td>
+            <td id="44"></td>
+            <td id="45"></td>
+            <td id="46"></td>
+        </tr>
+    </table>
+    <form>
+        <input type="text" id="guessInput" placeholder="A0">
+        <input type="button" id="fireButton" value="Fire!">
+    </form>
+</div>
+*/
 #board{
     position: relative;
-    width: 1024px;
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    padding: 2rem;
+    text-align: center;
+    max-width: 1024px;
+    min-height: 100vh;
     margin: auto;
     background: url("board.jpg") no-repeat;
 }
 
 div#messageArea {
-    position: absolute;
-    top: 20px;
-    left: -100px;
+    min-height:10px;
+    max-width: 100%;
     color: rgb(83, 175, 19);
 }
-
+div#messageArea::before {
+    content: url('../assest/images/radio_s.png');
+    display: inline-block;
+    width: 100%;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+.boardDiv{
+    position: relative;
+}
 table {
-    position: absolute;
-    left: 130px;/* left: 173px;*/
-    top: 30px; /* top: 98px;*/
     border-spacing: 0px;
+    padding: 0 10px;
+    position: relative;
+}
+.radar{
+    position: absolute;
+    top: 56%;
+    left: 56%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    border-radius: 0;
+    --border-size: 3px;
+    --border-angle: 0turn;
+    --grid-bg: radial-gradient(
+        transparent 69%,
+        limegreen 69%,
+        limegreen 70%,
+        transparent 70%
+    );
+  --line-bg: transparent 50%, limegreen 50%, transparent 50.5%;
+  background-image: conic-gradient(from var(--border-angle), transparent 10%, #0d0a 99%, limegreen 99.5%), linear-gradient(0deg, var(--line-bg)), linear-gradient(45deg, var(--line-bg)), linear-gradient(90deg, var(--line-bg)), linear-gradient(135deg, var(--line-bg)), var(--grid-bg), var(--grid-bg), var(--grid-bg);
+  background-size: cover, cover, cover, cover, cover, 25% 25%, 50% 50%, 75% 75%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  -webkit-animation: bg-spin 3s linear infinite;
+          animation: bg-spin 3s linear infinite;
+  /* position: relative; */
+  filter: drop-shadow(0px 0px 10vmin black) blur(0.5px) contrast(200%);
+}
+@-webkit-keyframes bg-spin {
+  to {
+    --border-angle: 1turn;
+  }
+}
+@keyframes bg-spin {
+  to {
+    --border-angle: 1turn;
+  }
+}
+.radar::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  width: 2vmin;
+  height: 2vmin;
+  background: limegreen;
+  border-radius: 50%;
+  -webkit-animation: move 18s steps(6) infinite;
+          animation: move 18s steps(6) infinite;
+}
+@-webkit-keyframes move {
+  33% {
+    transform: translate(25vmin, 10vmin);
+  }
+  66% {
+    transform: translate(15vmin, 30vmin);
+  }
+  100% {
+    transform: translate(0vmin, 0vmin);
+  }
+}
+@keyframes move {
+  33% {
+    transform: translate(25vmin, 10vmin);
+  }
+  66% {
+    transform: translate(15vmin, 30vmin);
+  }
+  100% {
+    transform: translate(0vmin, 0vmin);
+  }
+}
+.radar::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: solid 1vmin limegreen;
+  -webkit-animation: scale 3s linear infinite;
+          animation: scale 3s linear infinite;
+}
+@-webkit-keyframes scale {
+  from {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+@keyframes scale {
+  from {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  51%, 100% {
+    opacity: 0;
+  }
 }
 
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0turn;
+}
 td {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     border: 1px solid  #53af13;
     color: #ffffff;
+}
+@media (max-width:320px) {
+    td{
+        width: 30px;
+        height: 30px;
+    } 
+}
+@media (min-width:880px) {
+    #board{
+        flex-direction: row;
+        align-items: center;
+    }
+    div#messageArea {
+        width: 100px;
+        
+    }
+    td{
+        width: 70px;
+        height: 70px;
+    }
+    
 }
 td.number{
     border: none;
     text-align: center;
     font-weight: normal;
     font-family: sans-serif;
-    font-size: 20px;
+    font-size: 1rem;
     color: rgb(152, 207, 113);
 }
 form {
-    position: absolute;
-    bottom:150px;
-    right: -50px;
-    padding: 15px;
+    padding: 1rem;
     background-color: rgb(83, 175, 19);
-
 }
 
 form input {
     background-color: rgb(152, 207, 113);
     border-color: rgb(83, 175, 19);
-    font-size: 1em;
-
+    margin: 5px;
 }
-
+form input[type="text"] {
+    background-color: var(--main-bg-color);
+    color: var(--main-color);
+    padding: 1rem 2rem;
+    outline: none;
+}
+input[type="button"] {
+    padding: 5px 15px;
+    font-size: 16px;
+    font-weight: 600;
+}
 .hit {
-    background: url("../assest/images/fish-fins.svg") no-repeat center center;
+    background: url("../assest/images/hit.png") no-repeat center center;
 }
 
 .miss {
-    background: url("../assest/images/miss.svg") no-repeat center center;
+    background: url("../assest/images/miss.png") no-repeat center center;
 }
 
 .Loding {
@@ -75,7 +266,7 @@ form input {
     left: 0;
     width: 100%;
     min-height: 100vh;
-    background: gray;
+    background: var(--main-bg-color);
     color: white;
     text-align: center;
     /* display: flex; */
@@ -83,6 +274,28 @@ form input {
     justify-content: center;
     z-index: 999;
 }
+.marine_Ship{
+    animation: ship 2s linear infinite;
+    background-repeat: no-repeat;
+    bottom: 175px;
+    height: 145px;
+    left: 50%;
+	position: absolute;
+    width: 250px;
+}
 .d-flex{
     display: flex;
+}
+@keyframes ship{
+	0%{
+		transform: rotate(0);
+	}
+
+	50%{
+		transform: rotate(-3deg);
+	}
+
+	100%{
+		transform: rotate(0);
+	}
 }

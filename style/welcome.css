@@ -31,6 +31,10 @@
   user-select: none;
   pointer-events: none;
 }
+.radio_nanny{
+  width: 80px;
+  height: 80px;
+}
 
 .var-highlight{
   color: #C0AD60;
