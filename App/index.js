@@ -4,7 +4,7 @@ const enteredLocations = []
 
 StartGameBtn.addEventListener('click',LodingSGame)
 
-function LdingEGame(status){
+function LodingEGame(status){
     document.getElementById('Loding').classList.add('d-flex')
     setTimeout(()=>{
         document.getElementById('Loding').classList.remove('d-flex')
@@ -23,74 +23,72 @@ function LodingSGame(){
 }
 
 function generateGameBoard(parentElementId) {
-    const parentElement = document.getElementById(parentElementId);
 
-    parentElement.innerHTML = '';
+    document.getElementById(parentElementId).innerHTML = ''
 
     // Generate the game board HTML
-    const gameBoard = document.createElement('div');
-    gameBoard.id = 'board';
+    const gameBoard = document.createElement('div')
+    gameBoard.id = 'board'
 
     // Create the message area
-    const messageArea = document.createElement('div');
-    messageArea.id = 'messageArea';
-    gameBoard.appendChild(messageArea);
+    const messageArea = document.createElement('div')
+    messageArea.id = 'messageArea'
+    gameBoard.appendChild(messageArea)
 
-    const table = document.createElement('table');
+    const table = document.createElement('table')
     for (let row = 0; row < 8; row++) {
-        const tr = document.createElement('tr');
+        const tr = document.createElement('tr')
 
         for (let col = 0; col < 8; col++) {
-            const td = document.createElement('td');
+            const td = document.createElement('td')
 
             if (col === 0) {
                 // Leftmost column (letters)
-                td.classList.add('number');
+                td.classList.add('number')
                 if (row > 0) {
-                    td.textContent = String.fromCharCode(64 + row);
+                    td.textContent = String.fromCharCode(64 + row)
                 }
             } else {
                 if (row === 0) {
                     // Top row (numbers)
-                    td.classList.add('number');
-                    td.textContent = col - 1;
+                    td.classList.add('number')
+                    td.textContent = col - 1
                 } else {
                     // Game cells
-                    td.id = `${row - 1}${col - 1}`;
+                    td.id = `${row - 1}${col - 1}`
                 }
             }
 
-            tr.appendChild(td);
+            tr.appendChild(td)
         }
 
-        table.appendChild(tr);
+        table.appendChild(tr)
     }
 
-    gameBoard.appendChild(table);
+    gameBoard.appendChild(table)
 
     // Create the input form
-    const form = document.createElement('form');
-    const guessInput = document.createElement('input');
-    guessInput.type = 'text';
-    guessInput.id = 'guessInput';
-    guessInput.placeholder = 'A0';
-    const fireButton = document.createElement('input');
-    fireButton.type = 'button';
-    fireButton.id = 'fireButton';
-    fireButton.value = 'Fire!';
-    form.appendChild(guessInput);
-    form.appendChild(fireButton);
-    gameBoard.appendChild(form);
+    const form = document.createElement('form')
+    const guessInput = document.createElement('input')
+    guessInput.type = 'text'
+    guessInput.id = 'guessInput'
+    guessInput.placeholder = 'A0'
+    const fireButton = document.createElement('input')
+    fireButton.type = 'button'
+    fireButton.id = 'fireButton'
+    fireButton.value = 'Fire!'
+    form.appendChild(guessInput)
+    form.appendChild(fireButton)
+    gameBoard.appendChild(form)
 
     // Append the game board to the specified parent element
-    parentElement.appendChild(gameBoard);
+    document.getElementById(parentElementId).appendChild(gameBoard)
 }
-function generateGameEnd(parentElement,status){
-    const parentElement = document.getElementById(parentElementId)
+function generateGameEnd(parentElementId,status){
 
-    parentElement.innerHTML = ''
+    document.getElementById(parentElementId).innerHTML = ''
     if(status ==='win'){
-        parentElement.innerHTML =`<pre id="typewriter"><span class="var-highlight">Welcome Aboard!</span>
+        document.getElementById(parentElementId).innerHTML =`<pre id="typewriter"><span class="var-highlight">Welcome Aboard!</span>
 
         <span class="var-highlight">The Battle Begins</span> In this marine epic, you will command
         your very own battleship.It's a game of wit and strategy where your every decision
@@ -112,7 +110,7 @@ function generateGameEnd(parentElement,status){
         `
 
     }else{
-        parentElement.innerHTML =`<pre id="typewriter"><span class="var-highlight">Welcome Aboard!</span>
+        document.getElementById(parentElementId).innerHTML =`<pre id="typewriter"><span class="var-highlight">Welcome Aboard!</span>
 
         <span class="var-highlight">The Battle Begins</span> In this marine epic, you will command
         your very own battleship.It's a game of wit and strategy where your every decision
@@ -161,6 +159,116 @@ var view = {
 }
 
 // ** Implementing the the model
+// var model = {
+//     boardSize: 7,
+
+//     numShips: 3,
+
+//     shipLength: 3, 
+
+//     shipsSunk: 0,
+
+//     ships: [{ locations: [0, 0, 0], hits: ["", "", ""] },
+//     { locations: [0, 0, 0], hits: ["", "", ""] },
+//     { locations: [0, 0, 0], hits: ["", "", ""] }],
+
+//     generateShipLocations: ()=>{
+//         var locations
+//         for (let i = 0; i < this.numShips; i++) {
+//             do {
+
+//               locations = this.generateShip()// generate new set of location
+
+//             } while (this.collision(locations))//tell it is no collision 
+
+//             this.ships[i].locations = locations//set the uncollision location to the ships array location 
+//         }
+//     },
+//     // generate new location for the ship (random location )
+//     generateShip: ()=> {
+//         let direction = Math.floor(Math.random() * 2) 
+//         let row, col
+//         if (direction === 1) {// horizontal ship
+//             // Generate a starting location for a horizontal ship
+
+//             row = Math.floor(Math.random() * this.boardSize)
+//             col = Math.floor(Math.random() * (this.boardSize - this.shipLength))
+//             /**the ship is going to be placed horizontally, then the starting column must be between 0 and 4, so that we have room 
+//             for the rest of the ship */
+
+//         } else {// vertical ship
+//             // Generate a starting location for a vertical ship
+    
+//             row = Math.floor(Math.random() * (this.boardSize - this.shipLength))
+//             col = Math.floor(Math.random() * this.boardSize)
+//             /**likewise,the ship is going to be placed vertically, then the starting row must be between 0 and 4, so that we have room 
+//             for the rest of the ship */
+//         }
+
+
+//         //adding location to newShipLocations array
+//         var newShipLocations = []
+
+//         for (let i = 0; i < this.shipLength; i++) {
+
+//             if (direction === 1) {
+//                 //code for a horizontal ship location 
+//                 newShipLocations.push(row + '' + (col + i)); //having fix row and variable coloum that is horizontal build
+//             }else{
+//                 //code for a vertically ship location 
+//                 newShipLocations.push((row + i) + '' + col) //having fix coloum and variable row that is vertically build 
+//             }
+//         }
+//         return newShipLocations
+//     },
+
+//     // Avoiding a collision!
+//     collision: function(locations) {
+//         for (let i = 0; i < this.numShips; i++) {//For each ship already on the board...
+//             let ship = model.ships[i]
+        
+//             for (let j = 0; j < locations.length; j++) {
+//                 if (ship.locations.indexOf(locations[j]) >= 0){
+//                     return true
+//                 }
+//             }
+//         }
+//         //return false (there was no collision).
+//         return false
+//     },
+
+//     fire: function(guess) {
+//         for (let i = 0; i < this.numShips; i++) {
+//             let ship = this.ships[i]
+//             let index = ship.locations.indexOf(guess)
+
+//             if (index >= 0) {
+//                 ship.hits[index] = "hit"
+//                 view.displayHit(guess)
+//                 view.displayMessage("HIT!")
+//                 if (this.isSunk(ship)) {
+
+//                     view.displayMessage("You sank my battleship!")
+//                     this.shipsSunk++ // add sunk ship
+
+//                 }
+//                 return true
+//             }
+//         }
+//         view.displayMiss(guess)//miss
+//         view.displayMessage("You missed.")
+//         return false
+//     },
+
+//     isSunk: function(ship) {
+//         for (let i = 0; i < this.shipLength; i++) {
+//             if (ship.hits[i] !== "hit") {
+//                 return false
+//             }
+//         }
+//         return true
+//     }
+// }
 var model = {
     boardSize: 7,
 
@@ -174,44 +282,44 @@ var model = {
     { locations: [0, 0, 0], hits: ["", "", ""] },
     { locations: [0, 0, 0], hits: ["", "", ""] }],
 
-    generateShipLocations: ()=>{
-        var locations
-        for (let i = 0; i < this.numShips; i++) {
+    generateShipLocations: function() {
+        var locations;
+        for (var i = 0; i < this.numShips; i++) {
             do {
 
-              locations = this.generateShip()// generate new set of location
+              locations = this.generateShip()
+            } while (this.collision(locations))
 
-            } while (this.collision(locations))//tell it is no collision 
-
-            this.ships[i].locations = locations//set the uncollision location to the ships array location 
+            this.ships[i].locations = locations
         }
+
     },
     // generate new location for the ship (random location )
-    generateShip: ()=> {
-        let direction = Math.floor(Math.random() * 2) 
-        let row, col
-        if (direction === 1) {// horizontal ship
-            // Generate a starting location for a horizontal ship
+    generateShip: function() {
+        var direction = Math.floor(Math.random() * 2);//rundom num 0 || 1 
+        var row, col;
+        if (direction === 1) { 
+             // Generate a starting location for a horizontal ship
 
-            row = Math.floor(Math.random() * this.boardSize)
-            col = Math.floor(Math.random() * (this.boardSize - this.shipLength))
+            row = Math.floor(Math.random() * this.boardSize);
+            col = Math.floor(Math.random() * (this.boardSize - this.shipLength));
             /**the ship is going to be placed horizontally, then the starting column must be between 0 and 4, so that we have room 
             for the rest of the ship */
 
-        } else {// vertical ship
+        } else { 
             // Generate a starting location for a vertical ship
     
-            row = Math.floor(Math.random() * (this.boardSize - this.shipLength))
-            col = Math.floor(Math.random() * this.boardSize)
+            row = Math.floor(Math.random() * (this.boardSize - this.shipLength));
+            col = Math.floor(Math.random() * this.boardSize);
             /**likewise,the ship is going to be placed vertically, then the starting row must be between 0 and 4, so that we have room 
             for the rest of the ship */
         }
 
 
         //adding location to newShipLocations array
-        var newShipLocations = []
+        var newShipLocations = [];
 
-        for (let i = 0; i < this.shipLength; i++) {
+        for (var i = 0; i < this.shipLength; i++) {
 
             if (direction === 1) {
                 //code for a horizontal ship location 
@@ -221,55 +329,64 @@ var model = {
                 newShipLocations.push((row + i) + '' + col) //having fix coloum and variable row that is vertically build 
             }
         }
-        return newShipLocations
+        // Once we’ve filled the array with the ship’s locations, we return it to the calling method, generateShipLocations
+        return newShipLocations;
     },
 
     // Avoiding a collision!
-    collision: function(locations) {
-        for (let i = 0; i < this.numShips; i++) {//For each ship already on the board...
-            let ship = model.ships[i]
-        
-            for (let j = 0; j < locations.length; j++) {
-                if (ship.locations.indexOf(locations[j]) >= 0){
+    collision: function(locations) { // locations is an array of locations for a new ship we’d like to place on the boar
+
+        for (var i = 0; i < this.numShips; i++) {//For each ship already on the board...
+
+            var ship = model.ships[i]
+
+            for (var j = 0; j < locations.length; j++) {
+
+                if (ship.locations.indexOf(locations[j]) >= 0) {
                     return true
                 }
             }
         }
-        //return false (there was no collision).
-        return false
+        // never found a match for any of the locations we were checking => return false (there was no collision).
+        return false;
     },
 
     fire: function(guess) {
-        for (let i = 0; i < this.numShips; i++) {
-            let ship = this.ships[i]
-            let index = ship.locations.indexOf(guess)
+        for (var i = 0; i < this.numShips; i++) {
+            var ship = this.ships[i]
+            var index = ship.locations.indexOf(guess)
 
             if (index >= 0) {
                 ship.hits[index] = "hit"
                 view.displayHit(guess)
+                // ask the view to display the message “HIT!”
                 view.displayMessage("HIT!")
+                //look if the ship sunk after this hit 
                 if (this.isSunk(ship)) {
 
-                    view.displayMessage("You sank my battleship!")
+                    view.displayMessage("You sank my battleship!");
                     this.shipsSunk++ // add sunk ship
 
                 }
-                return true
+                return true;
             }
         }
-        view.displayMiss(guess)//miss
-        view.displayMessage("You missed.")
-        return false
+
+        view.displayMiss(guess);
+        // ask the view to display the message “You missed.”
+        view.displayMessage("You missed.");
+        return false;
     },
 
     isSunk: function(ship) {
-        for (let i = 0; i < this.shipLength; i++) {
+        for (var i = 0; i < this.shipLength; i++) {
             if (ship.hits[i] !== "hit") {
-                return false
-            }
+            return false
+        }
         }
         return true
     }
+
 }
 //test((activate the fire by hardcoding) ==>  model.fire('00');
 
@@ -312,16 +429,16 @@ let controller = {
                 this.guesses++
                 const hit = model.fire(location)// fire on place of the guess 
                 // determine when the game is complete.
-                if ((hit && model.shipsSunk === model.numShips) && guesses <= '21' ) {//the number of the sunk ship === number of the ships ?
+                if ((hit && model.shipsSunk === model.numShips) && this.guesses <= '21' ) {//the number of the sunk ship === number of the ships ?
                     view.displayMessage("You sank all my battleships, in " + this.guesses + " guesses")
                     setTimeout(()=>{
-                        LdingEGame('win')
-                    },1000)
+                        LodingEGame('win')
+                    },2000)
 
-                } else if((hit && model.shipsSunk === model.numShips) && guesses >= '21'){
+                } else if((hit && model.shipsSunk === model.numShips) && this.guesses >= '21'){
                     setTimeout(()=>{
-                        LdingEGame('loose')
-                    },1000)
+                        LodingEGame('loose')
+                    },2000)
                 }
             }
         }
