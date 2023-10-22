@@ -191,36 +191,29 @@ var model = {
     },
     // generate new location for the ship (random location )
     generateShip: function() {
-        var direction = Math.floor(Math.random() * 2);//rundom num 0 || 1 
-        var row, col;
+        var direction = Math.floor(Math.random() * 2);// num 0 || 1 
+        var row, col
         if (direction === 1) { 
-             // Generate a starting location for a horizontal ship
-
-            row = Math.floor(Math.random() * this.boardSize);
-            col = Math.floor(Math.random() * (this.boardSize - this.shipLength));
-            /**the ship is going to be placed horizontally, then the starting column must be between 0 and 4, so that we have room 
-            for the rest of the ship */
-
+            // Generate a starting location for a horizontal ship
+            row = Math.floor(Math.random() * this.boardSize)
+            col = Math.floor(Math.random() * (this.boardSize - this.shipLength))
         } else { 
             // Generate a starting location for a vertical ship
-    
-            row = Math.floor(Math.random() * (this.boardSize - this.shipLength));
-            col = Math.floor(Math.random() * this.boardSize);
-            /**the ship is going to be placed vertically, then the starting row must be between 0 and 4, so that we have room 
-            for the rest of the ship */
+            row = Math.floor(Math.random() * (this.boardSize - this.shipLength))
+            col = Math.floor(Math.random() * this.boardSize)
         }
 
 
         //adding location to newShipLocations array
-        var newShipLocations = [];
+        var newShipLocations = []
 
         for (var i = 0; i < this.shipLength; i++) {
 
             if (direction === 1) {
-                //code for a horizontal ship location 
+                //horizontal ship location 
                 newShipLocations.push(row + '' + (col + i))
             }else{
-                //code for a vertically ship location 
+                //vertically ship location 
                 newShipLocations.push((row + i) + '' + col)  
             }
         }
@@ -260,13 +253,12 @@ var model = {
                     this.shipsSunk++ // add sunk ship
 
                 }
-                return true;
+                return true
             }
         }
 
         view.displayMiss(guess);
-        // ask the view to display the message “You missed.”
-        view.displayMessage("You missed.");
+        view.displayMessage("You missed.")
         return false;
     },
 
