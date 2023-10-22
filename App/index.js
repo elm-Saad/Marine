@@ -96,7 +96,8 @@ function generateGameEnd(parentElementId,status){
 
     document.getElementById(parentElementId).innerHTML = ''
     if(status ==='win'){
-        document.getElementById(parentElementId).innerHTML =`<pre id="typewriter"><span class="var-highlight">Welcome Aboard!</span>
+        document.getElementById(parentElementId).innerHTML =`
+        <pre id="typewriter"><span class="var-highlight">Welcome Aboard!</span>
 
         <span class="var-highlight">The Battle Begins</span> In this marine epic, you will command
         your very own battleship.It's a game of wit and strategy where your every decision

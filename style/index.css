@@ -90,26 +90,25 @@ table {
     top: 56%;
     left: 56%;
     transform: translate(-50%, -50%);
-    width: 80%;
-    height: 80%;
+    width: 85%;
+    height: 85%;
     border-radius: 0;
     --border-size: 3px;
     --border-angle: 0turn;
     --grid-bg: radial-gradient(
         transparent 69%,
-        limegreen 69%,
-        limegreen 70%,
+        rgba(50, 205, 50, 0.6) 69%,
+        rgba(50, 205, 50, 0.6) 70%,
         transparent 70%
     );
-  --line-bg: transparent 50%, limegreen 50%, transparent 50.5%;
-  background-image: conic-gradient(from var(--border-angle), transparent 10%, #0d0a 99%, limegreen 99.5%), linear-gradient(0deg, var(--line-bg)), linear-gradient(45deg, var(--line-bg)), linear-gradient(90deg, var(--line-bg)), linear-gradient(135deg, var(--line-bg)), var(--grid-bg), var(--grid-bg), var(--grid-bg);
+  --line-bg: transparent 50%, transparent 50%, transparent 50.5%;
+  background-image: conic-gradient(from var(--border-angle), transparent 10%, #00dd0044 99%, rgba(0, 221, 0, 0.459) 99.5%), linear-gradient(0deg, var(--line-bg)), linear-gradient(45deg, var(--line-bg)), linear-gradient(90deg, var(--line-bg)), linear-gradient(135deg, var(--line-bg)), var(--grid-bg), var(--grid-bg), var(--grid-bg);
   background-size: cover, cover, cover, cover, cover, 25% 25%, 50% 50%, 75% 75%;
   background-position: center center;
   background-repeat: no-repeat;
   border-radius: 50%;
-  -webkit-animation: bg-spin 3s linear infinite;
-          animation: bg-spin 3s linear infinite;
-  /* position: relative; */
+  -webkit-animation: bg-spin 4s linear infinite;
+          animation: bg-spin 4s linear infinite;
   filter: drop-shadow(0px 0px 10vmin black) blur(0.5px) contrast(200%);
 }
 @-webkit-keyframes bg-spin {
@@ -172,7 +171,7 @@ table {
     transform: scale(0);
   }
   50% {
-    transform: scale(1.2);
+    transform: scale(1);
   }
   51%, 100% {
     opacity: 0;
@@ -183,7 +182,7 @@ table {
     transform: scale(0);
   }
   50% {
-    transform: scale(1.2);
+    transform: scale(1);
   }
   51%, 100% {
     opacity: 0;
@@ -211,6 +210,7 @@ td {
     #board{
         flex-direction: row;
         align-items: center;
+        padding: 0;
     }
     div#messageArea {
         width: 100px;
@@ -232,7 +232,24 @@ td.number{
 }
 form {
     padding: 1rem;
-    background-color: rgb(83, 175, 19);
+    background: conic-gradient(
+        from 0deg,
+        #556b2f 10%,
+        #5f5f5f 10%,
+        #556b2f 20%,
+        #5f5f5f 20%,
+        #556b2f 30%,
+        #5f5f5f 30%,
+        #5f5f5f 40%,
+        #556b2f 40%,
+        #556b2f 50%,
+        #5f5f5f 50%,
+        #556b2f 60%,
+        #5f5f5f 60%,
+        #5f5f5f 80%,
+        #556b2f 80%,
+        #556b2f 100%
+    )
 }
 
 form input {
