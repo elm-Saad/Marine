@@ -358,7 +358,7 @@ function handleKeyPress(e) {
 
 function handleFireButton() {
     let guessInput = document.getElementById("guessInput")
-    let guess = guessInput.value//form value
+    let guess = guessInput.value.toUpperCase()  //form value
    
     controller.processGuess(guess)
     guessInput.value = ""
